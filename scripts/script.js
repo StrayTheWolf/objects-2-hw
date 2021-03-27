@@ -64,7 +64,7 @@ showUniqueValue(characters, 'name');
 
 console.log("Число свойств в объекте")
 
-let var1 = { a: 1, b: 2 };
+let var1 = {a: 1, b: 2};
 
 let var2 = function () {
 
@@ -75,11 +75,11 @@ let var3 = [1, 2, 3];
 let var4 = [];
 var4[100] = 1;
 
-function getPropertyCount(obj){
+function getPropertyCount(obj) {
     let object = obj
     let counter = 0;
 
-    for (let key in obj){
+    for (let key in obj) {
         counter++;
     }
     return counter; // вовзращаем количество свойств в объекте
@@ -93,52 +93,80 @@ console.log(getPropertyCount(var4));
 
 console.log('Функция конструктор POST')
 
-let post = {} // объект пост
 
-Object.defineProperties(post, {
-    'title':{
-        value: 'Официально: ремейк первой «Готики» выйдет',
-        writable: true,
-        enumerable: true,
-        configurable: false
-    },
-    'text':{
-        value: 'За разработку отвечает испанское подразделение THQ Nordic. Первоочередная задача команды — проанализировать сильные и слабые стороны интерактивного тизера: «Одной из самых популярных просьб было сделать мир более суровым и мрачным». \n' +
-            '\n' +
-            '«Мы готовы к созданию полноценного ремейка Gothic, который останется максимально верным оригиналу, придаст миру игры современный вид и улучшит некоторые геймплейные механики», — пообещал директор по разработке и развитию бизнеса THQ Nordic Рейнхард Поллис (Reinhard Pollice).',
-        writable: true,
-        enumerable: true,
-        configurable: false
-    }
-})
-
-Object.defineProperties(post, {
-    'published':{
-        writable: false,
-        configurable: false
-    },
-    'deleted':{
-        writable: false,
-        configurable: false
-    }
-})
-
-
-
-Object.defineProperty(post,'title',{
-    writable: true,
-    enumerable: true,
-    configurable: false
-})
-
-
-
-
-
-function Post (title, text, published_at, published, deleted){
+function Post(title, text, published_at, published, deleted) {
     this.title = title;
     this.text = text;
     this.published_at = published_at;
+    this.published = published;
+    this.deleted = deleted;
+
+    this.isAllow = function () {
+        return true === this.published && this.deleted;
+    }
+
+    this.publishedAt = function () {
+
+        let timestamp = this.published_at
+        let date = new Date(published_at);
+        let fullYear = date.getFullYear()
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        return fullYear + ', ' + hours + ':' + minutes;
+    }
+
+    Object.defineProperties(this, {
+
+        'isAllow': {
+            writable: true,
+            enumerable: true,
+            configurable: false
+
+        }, 'published_at': {
+            writable: true,
+            enumerable: true,
+            configurable: false
+        }
+    })
+
+    Object.defineProperties(this, {
+
+        'title': {
+            writable: false,
+            enumerable: true,
+            configurable: false
+        },
+
+        'text': {
+
+            writable: false,
+            enumerable: true,
+            configurable: false
+        }
+    })
+
+    Object.defineProperties(this, {
+
+        'published': {
+            writable: false,
+            configurable: false
+
+        },
+        'deleted': {
+
+            writable: false,
+            configurable: false
+        }
+    })
 }
 
+let post1 = new Post('Заголовок статьи', 'Содержимое статьи', Date.now(), true, false)
 
+
+console.log(post1.title)
+console.log(post1.text)
+console.log(post1.published_at);
+console.log(post1.isAllow())
+console.log(post1.publishedAt());
+
+console.log(Object.keys(post1));

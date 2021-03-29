@@ -97,24 +97,13 @@ console.log('Функция конструктор POST')
 
 
 function Post(title, text, published_at, published, deleted) {
+
     this.title = title;
     this.text = text;
     this.published_at = published_at;
     this.published = published;
     this.deleted = deleted;
 
-    this.isAllow = function () {
-        return true === this.published && this.deleted;
-    }
-
-    this.publishedAt = function () {
-
-        let date = new Date(published_at);
-        let fullYear = date.getFullYear()
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        return fullYear + ', ' + hours + ':' + minutes;
-    }
 
     Object.defineProperties(this, {
 
@@ -146,7 +135,10 @@ function Post(title, text, published_at, published, deleted) {
 
         'isAllow': {
 
-            writable: true,
+            get () {
+                return published === true && deleted === true;
+            },
+
             enumerable: true,
             configurable: false
 
@@ -154,7 +146,18 @@ function Post(title, text, published_at, published, deleted) {
 
         'published_at': {
 
-            writable: true,
+            get () {
+                let date = new Date(published_at);
+                let fullYear = date.getFullYear()
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                return fullYear + ', ' + hours + ':' + minutes;
+            },
+
+            set (value){
+                return Date.now();
+            },
+
             enumerable: true,
             configurable: false
         },
@@ -164,10 +167,8 @@ function Post(title, text, published_at, published, deleted) {
 let post1 = new Post('Заголовок статьи', 'Содержимое статьи', Date.now(), true, false)
 
 
-console.log(post1.title)
-console.log(post1.text)
-console.log(post1.publishedAt());
-console.log(post1.isAllow())
-
-
+console.log(post1.title);
+console.log(post1.text);
+console.log(post1.published_at);
+console.log(post1.isAllow);
 console.log(Object.keys(post1));

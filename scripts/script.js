@@ -98,14 +98,11 @@ console.log('Функция конструктор POST')
 
 function Post(title, text, published_at, published, deleted) {
 
-    this.title = title;
-    this.text = text;
-    this.published_at = published_at;
-
     Object.defineProperties(this, {
 
         'published': {
 
+            value: published,
             writable: false,
             enumerable: true,
             configurable: false
@@ -113,6 +110,7 @@ function Post(title, text, published_at, published, deleted) {
         },
         'deleted': {
 
+            value: deleted,
             writable: false,
             enumerable: true,
             configurable: false
@@ -120,6 +118,7 @@ function Post(title, text, published_at, published, deleted) {
 
         'title': {
 
+            value: title,
             writable: false,
             enumerable: true,
             configurable: false
@@ -127,6 +126,7 @@ function Post(title, text, published_at, published, deleted) {
 
         'text': {
 
+            value: text,
             writable: false,
             enumerable: true,
             configurable: false
@@ -134,7 +134,7 @@ function Post(title, text, published_at, published, deleted) {
 
         'isAllow': {
 
-            get () {
+            get() {
                 return published === true && deleted === true;
             },
 
@@ -145,7 +145,7 @@ function Post(title, text, published_at, published, deleted) {
 
         'published_at': {
 
-            get () {
+            get() {
                 let date = new Date(published_at);
                 let fullYear = date.getFullYear()
                 let hours = date.getHours();
@@ -153,8 +153,8 @@ function Post(title, text, published_at, published, deleted) {
                 return fullYear + ', ' + hours + ':' + minutes;
             },
 
-            set (value){
-                return Date.now();
+            set dateNow (date) {
+                this.published_at = date;
             },
 
             enumerable: true,
@@ -169,5 +169,7 @@ let post1 = new Post('Заголовок статьи', 'Содержимое с
 console.log(post1.title);
 console.log(post1.text);
 console.log(post1.published_at);
+post1.dateNow = '2021 01 01';
 console.log(post1.isAllow);
 console.log(Object.keys(post1));
+console.log(post1)

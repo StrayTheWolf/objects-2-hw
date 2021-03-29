@@ -40,6 +40,8 @@ function checkObj2(object) {
 
 console.log(checkObj2(user2));
 
+console.log('Вывод массива определенных свойств')
+
 const characters = [
     {'name': 'barney', 'age': 36},
     {'name': 'fred', 'age': 40},

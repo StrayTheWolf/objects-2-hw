@@ -107,7 +107,6 @@ function Post(title, text, published_at, published, deleted) {
 
     this.publishedAt = function () {
 
-        let timestamp = this.published_at
         let date = new Date(published_at);
         let fullYear = date.getFullYear()
         let hours = date.getHours();
@@ -117,21 +116,20 @@ function Post(title, text, published_at, published, deleted) {
 
     Object.defineProperties(this, {
 
-        'isAllow': {
-            writable: true,
-            enumerable: true,
+        'published': {
+
+            writable: false,
             configurable: false
 
-        }, 'published_at': {
-            writable: true,
-            enumerable: true,
-            configurable: false
-        }
-    })
+        },
+        'deleted': {
 
-    Object.defineProperties(this, {
+            writable: false,
+            configurable: false
+        },
 
         'title': {
+
             writable: false,
             enumerable: true,
             configurable: false
@@ -142,21 +140,22 @@ function Post(title, text, published_at, published, deleted) {
             writable: false,
             enumerable: true,
             configurable: false
-        }
-    })
+        },
 
-    Object.defineProperties(this, {
+        'isAllow': {
 
-        'published': {
-            writable: false,
+            writable: true,
+            enumerable: true,
             configurable: false
 
         },
-        'deleted': {
 
-            writable: false,
+        'published_at': {
+
+            writable: true,
+            enumerable: true,
             configurable: false
-        }
+        },
     })
 }
 
@@ -165,8 +164,8 @@ let post1 = new Post('Заголовок статьи', 'Содержимое с
 
 console.log(post1.title)
 console.log(post1.text)
-console.log(post1.published_at);
-console.log(post1.isAllow())
 console.log(post1.publishedAt());
+console.log(post1.isAllow())
+
 
 console.log(Object.keys(post1));

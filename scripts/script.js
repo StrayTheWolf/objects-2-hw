@@ -101,21 +101,20 @@ function Post(title, text, published_at, published, deleted) {
     this.title = title;
     this.text = text;
     this.published_at = published_at;
-    this.published = published;
-    this.deleted = deleted;
-
 
     Object.defineProperties(this, {
 
         'published': {
 
             writable: false,
+            enumerable: true,
             configurable: false
 
         },
         'deleted': {
 
             writable: false,
+            enumerable: true,
             configurable: false
         },
 

@@ -180,44 +180,16 @@ console.log('Класс POST')
 
 class Post2 {
 
+    #published_at = '';
+
     constructor(title, text, published_at, published, deleted) {
 
-        Object.defineProperties(this, {
-
-            'text': {
-                value: text,
-                enumerable: true,
-                writable: true,
-                configurable: false
-            },
-
-            'title': {
-                value: title,
-                enumerable: true,
-                writable: true,
-                configurable: false
-            },
-
-            'isAllow': {
-                value: this.isAllow,
-                enumerable: true,
-            },
-
-            'published_at': {
-                value: this.published_at,
-                enumerable: true,
-            },
-
-            'dateNow': {
-                value: this.dateNow,
-                enumerable: true,
-            },
-        })
-
+        this.title = title;
+        this.text = text;
         this.published = published;
         this.deleted = deleted;
+        this.#published_at = published_at
     }
-
 
     get isAllow() {
         return this.published === true && this.deleted === true;
@@ -232,8 +204,8 @@ class Post2 {
         return fullYear + ', ' + hours + ':' + minutes;
     }
 
-    set dateNow (value) {
-        return this.published_at = value
+    set dateNow(value) {
+        return this.#published_at = Date.now();
     }
 }
 
@@ -242,6 +214,7 @@ let post2 = new Post2('Заголовок статьи Класс', 'Содер�
 console.log(post2.title);
 console.log(post2.text);
 console.log(post2.published_at);
+post2.dateNow;
 console.log(post2.isAllow);
 console.log(Object.keys(post2));
 console.log(post2)

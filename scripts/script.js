@@ -180,7 +180,7 @@ console.log('Класс POST')
 
 class Post2 {
 
-    #published_at = '';
+    #published_at;
 
     constructor(title, text, published_at, published, deleted) {
 
@@ -197,15 +197,18 @@ class Post2 {
 
     get published_at() {
 
-        let date = new Date();
-        let fullYear = date.getFullYear()
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        return fullYear + ', ' + hours + ':' + minutes;
+        let timeStamp = new Date(this.#published_at);
+        let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        let year = timeStamp.getFullYear();
+        let month = months[timeStamp.getMonth()];
+        let date = timeStamp.getDate();
+        let hour = timeStamp.getHours();
+        let min = timeStamp.getMinutes();
+        return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min;
     }
 
-    set dateNow(value) {
-        return this.#published_at = Date.now();
+    set published_at(value) {
+        return this.#published_at = value// передаем некую новую дату
     }
 }
 
@@ -214,7 +217,9 @@ let post2 = new Post2('Заголовок статьи Класс', 'Содер�
 console.log(post2.title);
 console.log(post2.text);
 console.log(post2.published_at);
-post2.dateNow;
+post2.published_at = 109537920000 // передаем в какое то время или что то в время публикации
 console.log(post2.isAllow);
 console.log(Object.keys(post2));
 console.log(post2)
+
+

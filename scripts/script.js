@@ -197,6 +197,21 @@ class Post2 {
                 writable: true,
                 configurable: false
             },
+
+            'isAllow': {
+                value: this.isAllow,
+                enumerable: true,
+            },
+
+            'published_at': {
+                value: this.published_at,
+                enumerable: true,
+            },
+
+            'dateNow': {
+                value: this.dateNow,
+                enumerable: true,
+            },
         })
 
         this.published = published;
@@ -215,6 +230,10 @@ class Post2 {
         let hours = date.getHours();
         let minutes = date.getMinutes();
         return fullYear + ', ' + hours + ':' + minutes;
+    }
+
+    set dateNow (value) {
+        return this.published_at = value
     }
 }
 

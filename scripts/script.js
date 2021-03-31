@@ -198,13 +198,12 @@ class Post2 {
     get published_at() {
 
         let timeStamp = new Date(this.#published_at);
-        let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         let year = timeStamp.getFullYear();
-        let month = months[timeStamp.getMonth()];
+        let month = timeStamp.getMonth();
         let date = timeStamp.getDate();
         let hour = timeStamp.getHours();
         let min = timeStamp.getMinutes();
-        return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min;
+        return date + '.' + month + '.' + year + ' ' + hour + ':' + min;
     }
 
     set published_at(value) {
